@@ -1,0 +1,19 @@
+<!--
+  Gemeinsame Build-Einstellungen für ALLE Projekte im Repo (Single Source of Truth).
+  MSBuild sucht diese Datei automatisch in den übergeordneten Ordnern jedes .csproj,
+  deshalb bleiben die einzelnen Projektdateien fast leer.
+-->
+<Project>
+  <PropertyGroup>
+    <!-- Jede Aufgabe ist eine Konsolenanwendung. -->
+    <OutputType>Exe</OutputType>
+    <!-- .NET 8 ist die aktuelle LTS-Version und läuft auf den meisten Uni-/Visual-Studio-Installationen. -->
+    <TargetFramework>net8.0</TargetFramework>
+    <!-- Ist nur eine neuere Runtime (z. B. .NET 10) installiert, darf das Programm trotzdem darauf laufen. -->
+    <RollForward>Major</RollForward>
+    <!-- Wie im Visual-Studio-Template: übliche usings (System, System.Linq, ...) sind automatisch da. -->
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Nullable-Warnungen an: der Compiler weist z. B. darauf hin, dass Console.ReadLine() null liefern kann. -->
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+</Project>
