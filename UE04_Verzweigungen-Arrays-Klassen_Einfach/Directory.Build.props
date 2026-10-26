@@ -1,0 +1,8 @@
+<Project>
+  <!-- Übernimmt alle Einstellungen aus der Directory.Build.props im Repo-Root. -->
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+  <PropertyGroup>
+    <!-- Ohne Nullable-Warnungen: Console.ReadLine() darf einfach in einen string. -->
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+</Project>
