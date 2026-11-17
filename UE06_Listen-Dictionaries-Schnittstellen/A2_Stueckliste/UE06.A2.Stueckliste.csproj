@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <!-- Die CSV wird beim Build neben die .exe kopiert, damit File.ReadAllLines("Stueckliste.csv") sie findet. -->
+    <None Update="Stueckliste.csv" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

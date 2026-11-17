@@ -1,0 +1,21 @@
+Pos;Name;Material;Masse [kg]
+1;Ritzelwelle;42CrMo4;3,265
+2;Distanzhülse1;S235JR;0,051
+3;Distanzhülse2;S235JR;0,041
+4;Zylinderrollenlager;;0,112
+5;Rillenkugellager;;0,258
+6;Distanzhülse3;S235JR;0,060
+7;Wellenmutter KMK 8;;0,119
+8;Sicherungsring 45 x 1,75;;0,007
+9;Gehäuseteil links;EN AC-AlCu4MgTi;3,491
+10;Großrad;42CrMo4;7,488
+11;Antriebswelle;42CrMo4;5,761
+12;Passfeder A18 x 11 x 50;;0,071
+13;Sicherungsring 100 x 3;;0,006
+14;Gehäuseteil rechts;EN AC-AlCu4MgTi;2,723
+15;Lagerdeckel;EN AC-AlCu4MgTi;0,280
+16;O-Ring 95 x 3,55;;0,003
+17;Distanzhülse4;S235JR;0,115
+18;Zylinderschraube - M6 x 16 - 8.8;;0,007
+19;Sechskantschraube - M10 x 45 x 26 - 8.8;;0,039
+20;Sechkskantmutter - M10 - 8;;0,011
