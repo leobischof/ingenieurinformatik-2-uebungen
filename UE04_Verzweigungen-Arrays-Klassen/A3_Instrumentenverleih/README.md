@@ -1,85 +1,52 @@
-# A3 – Instrumentenverleih
+# UE04 – Aufgabe 3: Instrumentenverleih
 
-## Aufgabe (zusammengefasst)
+## Was macht das Programm?
 
-Simuliert wird ein Verleih von Musikinstrumenten:
+Es simuliert einen Instrumentenverleih mit vier Instrumenten. Zuerst siehst du eine Tabelle mit
+Bezeichnung, Seriennummer und Status (`ReadyToRent` = frei, `RentedOut` = verliehen). Du gibst die
+Seriennummer eines Instruments ein, es wird ausgeliehen, und die Tabelle erscheint neu. Falsche
+Eingaben (Buchstaben, unbekannte Seriennummer, schon verliehenes Instrument) werden mit einer
+Meldung abgefangen. Das Programm endet bei Eingabe von `e` oder von selbst, sobald alles verliehen ist.
 
-- Eine Klasse **`Instrument`** hat Seriennummer, Name und Verleihstatus. Der Status ist ein enum mit den Werten **`ReadyToRent`** und **`RentedOut`**. Der Konstruktor setzt Name und Seriennummer aus Parametern und den Status auf `ReadyToRent`.
-- In `Main` wird zuerst ein Array mit vier Instrumenten direkt befüllt. Danach wird der User begrüßt und bekommt das Inventar samt Status angezeigt.
-- Der User leiht ein Instrument aus, indem er dessen Seriennummer eingibt. Der Status wechselt dann auf `RentedOut`. Die Eingabe muss geprüft werden. Nach jedem erfolgreichen Verleih wird das Inventar erneut angezeigt.
-- Ausleihen geht so lange, bis nichts mehr verfügbar ist oder der User das Programm beendet (`e`).
+## So zeigst du den Code
 
-## Umsetzung und Entscheidungen
+1. `Verleihstatus.cs`: Das **enum** mit den zwei Zuständen `ReadyToRent` und `RentedOut`.
+2. `Instrument.cs`: Die Klasse mit drei `private` Feldern (Seriennummer, Name, Status), dem
+   **Konstruktor** (setzt den Status auf `ReadyToRent`), den Get-Methoden und `Ausleihen()`.
+3. `Program.cs`, `Main` oben: Das Array mit den vier Instrumenten, jedes `new Instrument(...)`
+   ist ein Objekt.
+4. `Main`, die `while (true)`-Schleife: Zuerst die Prüfung „alles verliehen?" (→ `break`), dann
+   Eingabe lesen, bei `e` → `break`, dann `TryParse`, dann suchen und die zwei Fehlerfälle prüfen.
+5. Die Hilfsmethoden `ZeigeInventar` (Tabelle mit `PadRight`), `SucheInstrument` (mit `break`)
+   und `SindAlleVerliehen`.
+6. Vorführen: `324385`, dann `abc`, `999`, nochmal `324385` (schon verliehen), dann `e`.
 
-- **Seriennummer als `string`**: Mit Seriennummern rechnet man nicht. Führende Nullen blieben bei `int` nicht erhalten, und echte Seriennummern enthalten oft Buchstaben. Da alle Nummern dieses Verleihs numerisch sind, wird die Eingabe trotzdem auf „nur Ziffern“ geprüft.
-- **Status nur über `Verleihen()` änderbar**: Es gibt keinen öffentlichen Setter. So prüft die Klasse selbst, dass nichts doppelt verliehen wird.
-- Geprüfte Fehlerfälle: keine Zahl (auch leere Eingabe), unbekannte Seriennummer, bereits verliehen. `e` bzw. `E` beendet das Programm. Sind alle Instrumente verliehen, endet es automatisch. Bei Eingabeende (EOF) endet es ebenfalls sauber.
+## Wahrscheinliche Fragen
 
-## Klassisch vs. Modern
-
-| Thema | Klassisch | Modern |
-|-------|-----------|--------|
-| Klasse | `private readonly` Felder + `GetName()`, `GetSeriennummer()`, `GetStatus()` | Primary Constructor, `{ get; }` bzw. `Status { get; private set; }` |
-| Verfügbarkeit | Methode `IstVerfuegbar()` | berechnete Property `IstVerfuegbar` |
-| Suche | `foreach` + `break` | `FirstOrDefault` + Pattern `is not { } instrument` |
-| „Nur Ziffern“ | `foreach` über die Zeichen, Vergleich mit `'0'`/`'9'` | `All(char.IsAsciiDigit)` |
-| Noch etwas verfügbar? | `foreach` mit frühem `return` | `Any(...)` |
-| Tabellenausgabe | `PadRight` | Interpolation mit Alignment `{name,-30}` |
+- **Was ist ein enum?** Ein eigener Datentyp mit einer festen Liste erlaubter Werte. Der Status kann
+  nur `ReadyToRent` oder `RentedOut` sein, ein Tippfehler wie `"verliehn"` wäre gar nicht möglich
+  (bei einem String schon).
+- **Was ist der Unterschied zwischen Klasse und Objekt?** Die Klasse `Instrument` ist der Bauplan,
+  ein Objekt ist ein konkretes Instrument, das mit `new` daraus gebaut wird. Wir haben vier
+  Objekte der einen Klasse. In Python: `class Instrument` und `Instrument(...)`.
+- **Warum sind die Felder `private`?** Von außen soll niemand den Status einfach auf einen
+  beliebigen Wert setzen können. Lesen geht über `GetStatus()`, ändern nur über `Ausleihen()`.
+  Name und Seriennummer ändern sich nie, deshalb gibt es dafür nur Getter und keinen Setter.
+- **Was macht der Konstruktor?** Er läuft automatisch bei `new Instrument(...)`. Er setzt Name und
+  Seriennummer aus den Parametern und den Status auf `ReadyToRent`. In Python wäre das `__init__`.
+- **Was macht `break`?** Es beendet sofort die Schleife, in der es steht. In `Main` verlässt es die
+  `while (true)`-Schleife (bei `e` oder wenn alles verliehen ist), in `SucheInstrument` die
+  `foreach`-Schleife, sobald das Instrument gefunden ist. Genau wie `break` in Python.
+- **Und `continue`?** Es beendet nur den aktuellen Durchlauf und springt gleich zum nächsten. Bei
+  einer Eingabe ohne Ziffern wird so nicht gesucht, sondern sofort neu gelesen. Auch wie in Python.
+- **Was macht `int.TryParse`?** Es versucht, den Text in eine Zahl umzuwandeln, und liefert `true`,
+  wenn das klappt. Die Zahl landet in `seriennummer` (das macht `out`). Bei `abc` gibt es `false`
+  und damit die Fehlermeldung.
 
 ## Starten
 
 ```bash
-dotnet run --project UE04_Verzweigungen-Arrays-Klassen/A3_Instrumentenverleih/Klassisch
-dotnet run --project UE04_Verzweigungen-Arrays-Klassen/A3_Instrumentenverleih/Modern
+dotnet run --project "UE04_Verzweigungen-Arrays-Klassen_Einfach/A3_Instrumentenverleih"
 ```
 
-## Beispiel-Ausgabe (echter Testlauf, beide Versionen identisch)
-
-Eingabe: `324385`, `abc`, `999`, `324385` (doppelt), `e`
-
-```text
-Willkommen beim Instrumentenverleih!
-
-Hier sind unsere verfügbaren Instrumente. Bitte geben Sie die Seriennummer des Instruments an, das Sie entlehnen möchten.
-Wenn Sie das Programm beenden möchten, drücken Sie e.
-
-Bezeichnung                   Seriennummer  Status
-
-Yamaha YCL Klarinette         | 494773      | ReadyToRent
-Olds Recording Trompete       | 324385      | ReadyToRent
-Stradivari Geige              | 654435      | ReadyToRent
-Pearl Roadshow Schlagzeug     | 847473      | ReadyToRent
-
-324385
-Sie haben Olds Recording Trompete ausgeliehen. Vielen Dank.
-
-Hier sind unsere verfügbaren Instrumente. Bitte geben Sie die Seriennummer des Instruments an, das Sie entlehnen möchten.
-Wenn Sie das Programm beenden möchten, drücken Sie e.
-
-Bezeichnung                   Seriennummer  Status
-
-Yamaha YCL Klarinette         | 494773      | ReadyToRent
-Olds Recording Trompete       | 324385      | RentedOut
-Stradivari Geige              | 654435      | ReadyToRent
-Pearl Roadshow Schlagzeug     | 847473      | ReadyToRent
-
-abc
-Ungültige Eingabe: Bitte geben Sie eine Seriennummer (nur Ziffern) oder e ein.
-999
-Es gibt kein Instrument mit der Seriennummer 999.
-324385
-Das Instrument Olds Recording Trompete (324385) ist bereits verliehen. Bitte wählen Sie ein anderes Instrument.
-e
-Sie haben das Programm beendet.
-```
-
-Wenn alle vier Instrumente verliehen sind (Eingabe `494773`, `324385`, `654435`, `847473`), endet das Programm von selbst:
-
-```text
-Yamaha YCL Klarinette         | 494773      | RentedOut
-Olds Recording Trompete       | 324385      | RentedOut
-Stradivari Geige              | 654435      | RentedOut
-Pearl Roadshow Schlagzeug     | 847473      | RentedOut
-
-Alle Instrumente sind verliehen. Das Programm wird automatisch beendet.
-```
+In Zed: `Program.cs` öffnen und `Strg+F5` drücken.

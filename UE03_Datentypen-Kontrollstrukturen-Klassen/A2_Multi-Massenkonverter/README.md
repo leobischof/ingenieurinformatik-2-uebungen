@@ -11,26 +11,23 @@ Umrechnung fragt das Programm, ob eine weitere folgen soll (Ja/Nein).
 Umrechnungsfaktoren: **1 kg = 2,20462 lbs**, **1 st = 6,35029 kg** (= 14 lbs). Gerechnet wird immer
 über Kilogramm als Basiseinheit, deshalb reichen zwei Faktoren.
 
-## Klassisch vs. Modern
+## Lösungsweg
 
-| Aspekt | Klassisch | Modern |
-|--------|-----------|--------|
-| Programmrahmen | `class Program` + `Main`, alles in `Main` | Top-Level-Statements + lokale Funktionen |
-| Konstanten | `const` in `Program`, GROSSBUCHSTABEN, Menünummern als `const int` | `const` in eigener Klasse `Massenumrechnung` (PascalCase) |
-| Einheiten | Menünummern 1/2/3 als Konstanten | `enum Masseneinheit` (eigene Datei) |
-| Massenprüfung | **bewusst geschachtelte Verzweigung** (`if TryParse { if negativ … }`) | Guard Clauses mit `continue` |
-| Umrechnung | `switch`-Anweisung + drei `if (auswahl != …)` | Switch-Ausdrücke, `Enum.GetValues<T>().Where(...)` (LINQ) |
-| Ja/Nein | `if`/`else if` mit `||` | Switch-Ausdruck mit `or`-Mustern |
-| Ausgabeformat | Platzhalter `{0:F2}` | Interpolation `$"{wert:F2}"` |
+- **Programmrahmen:** `class Program` + `Main`, alles in `Main`
+- **Konstanten:** `const` in `Program`, GROSSBUCHSTABEN, Menünummern als `const int`
+- **Einheiten:** Menünummern 1/2/3 als Konstanten
+- **Massenprüfung:** **bewusst geschachtelte Verzweigung** (`if TryParse { if negativ … }`)
+- **Umrechnung:** `switch`-Anweisung + drei `if (auswahl != …)`
+- **Ja/Nein:** `if`/`else if` mit `
+- **Ausgabeformat:** Platzhalter `{0:F2}`
 
 ## Starten
 
 ```powershell
-dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A2_Multi-Massenkonverter/Klassisch"
-dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A2_Multi-Massenkonverter/Modern"
+dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A2_Multi-Massenkonverter"
 ```
 
-## Beispiel-Ausgabe (Klassisch, identisch mit Modern)
+## Beispiel-Ausgabe
 
 Testlauf mit den Eingaben aus der Angabe: `1`, `20`, `Ja`, `3`, `10`, `Nein`. Weil die Eingabe
 umgeleitet ist, erscheinen die eingegebenen Werte selbst nicht in der Ausgabe.

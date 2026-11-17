@@ -1,13 +1,9 @@
 # UE03 – Datentypen, Kontrollstrukturen und einfache Klassen
 
 Übungsblock #3 der Lehrveranstaltung *Ingenieurinformatik II* (TU Graz, WS 2026/27).
-Jede Aufgabe ist zweimal gelöst:
-
-- **Klassisch**: so, wie es in der Vorlesung gelehrt wird. Block-Namespace, `class Program` mit
-  `static void Main`, nur Stoff aus UE3 (Datentypen, Casts, `Parse`/`TryParse`, `const`,
-  `if`/`switch`, `while`/`do-while`/`for`, „vereinfachte“ Klassen mit public Feldern).
-- **Modern**: idiomatisches C# 12 / .NET 8 mit gleicher Funktion. Top-Level-Statements,
-  file-scoped Namespaces, Records/Properties, Switch-Ausdrücke, Pattern Matching, LINQ.
+Jede Aufgabe ist so gelöst, wie es in der Vorlesung gelehrt wird: Block-Namespace,
+`class Program` mit `static void Main`, nur Stoff aus UE3 (Datentypen, Casts, `Parse`/`TryParse`,
+`const`, `if`/`switch`, `while`/`do-while`/`for`, „vereinfachte“ Klassen mit public Feldern).
 
 Alle Quelldateien sind ausführlich auf Deutsch kommentiert. Die Kommentare erklären vor allem,
 *warum* etwas so gelöst ist.
@@ -36,14 +32,10 @@ Voraussetzung: .NET SDK 8 oder neuer. Dank `RollForward=Major` laufen die Progra
 .NET 9/10 installiert ist. Die Befehle gelten für den Repo-Root:
 
 ```powershell
-dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A1_Datentypen/Klassisch"
-dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A1_Datentypen/Modern"
-dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A2_Multi-Massenkonverter/Klassisch"
-dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A2_Multi-Massenkonverter/Modern"
-dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A3_Fahrrad/Klassisch"
-dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A3_Fahrrad/Modern"
-dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A4_Bestellsystem/Klassisch"
-dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A4_Bestellsystem/Modern"
+dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A1_Datentypen"
+dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A2_Multi-Massenkonverter"
+dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A3_Fahrrad"
+dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A4_Bestellsystem"
 ```
 
 In Visual Studio öffnet man `IngInfo2-Uebungen.sln` und wählt das gewünschte Projekt als

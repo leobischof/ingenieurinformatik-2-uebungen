@@ -9,25 +9,22 @@ kommt eine `float`-Variable mit dem Wert 2,56. Die Summe der beiden wird ausgege
 mit `(int)` in eine Ganzzahl umgewandelt und noch einmal ausgegeben. Die drei Fragen der Angabe sind
 im Code als Kommentar beantwortet und stehen auch unten.
 
-## Klassisch vs. Modern
+## Lösungsweg
 
-| Aspekt | Klassisch | Modern |
-|--------|-----------|--------|
-| Programmrahmen | `namespace { class Program { static void Main } }` | Top-Level-Statements |
-| Eingabeschleife | `do-while` + Längenprüfung `eingabe.Length != 1` | `while (true)` + `char.TryParse(eingabe, out zeichen)` |
-| string → char | `char.Parse(eingabe)` (nach der Prüfung) | übernimmt `char.TryParse` |
-| null-Prüfung (EOF) | `eingabe == null` | `eingabe is null` (Pattern Matching) |
-| Ausgabe | String-Verkettung mit `+` | String-Interpolation, zusätzlich `{x:X4}` (Unicode-Hex) und `{x:F2}` |
-| Datentypen | explizit (`char`, `int`, `double`, `float`) | ebenfalls explizit, bewusst kein `var` |
+- **Programmrahmen:** `namespace { class Program { static void Main } }`
+- **Eingabeschleife:** `do-while` + Längenprüfung `eingabe.Length != 1`
+- **string → char:** `char.Parse(eingabe)` (nach der Prüfung)
+- **null-Prüfung (EOF):** `eingabe == null`
+- **Ausgabe:** String-Verkettung mit `+`
+- **Datentypen:** explizit (`char`, `int`, `double`, `float`)
 
 ## Starten
 
 ```powershell
-dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A1_Datentypen/Klassisch"
-dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A1_Datentypen/Modern"
+dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A1_Datentypen"
 ```
 
-## Beispiel-Ausgabe (Klassisch)
+## Beispiel-Ausgabe
 
 Testlauf mit umgeleiteter Eingabe `ab`, *(leere Zeile)*, `a`. Bei umgeleiteter Eingabe erscheinen
 die eingegebenen Werte nicht in der Konsole, deshalb stehen die Meldungen direkt hinter den Fragen.
@@ -41,8 +38,6 @@ float-Wert: 2,56
 Summe (double + float): 128,65999994277956
 Summe als int: 128
 ```
-
-Die moderne Version gibt zusätzlich `(Unicode U+0061)` und `(gerundet angezeigt: 128,66)` aus.
 
 ## Antworten auf die Fragen
 
