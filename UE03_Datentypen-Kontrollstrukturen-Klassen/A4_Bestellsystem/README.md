@@ -17,27 +17,24 @@ Das Gericht auf der Speisekarte darf durch einen Sonderwunsch **nicht** verände
 sind Referenztypen: Wer eine Referenz auf das Burger-Objekt hat und dort den Preis ändert, ändert den
 Burger für alle folgenden Bestellungen.
 
-## Klassisch vs. Modern
+## Lösungsweg
 
-| Aspekt | Klassisch | Modern |
-|--------|-----------|--------|
-| Klassen | `Gericht`, `Bestellposition`, `Bestellung` mit public Feldern | `record Gericht`, `record Bestellposition`, `class Bestellung` mit Kapselung |
-| Geld | `double` (im Kommentar erklärt, warum `decimal` besser wäre) | `decimal` (`5.99m`) |
-| Sonderwunsch | Werte in die Position **kopiert** und dort erhöht | Position verweist auf das unveränderliche Gericht, Preis/Zeit sind **berechnete** Properties |
-| Speisekarte | drei Variablen + `switch` | Array per Collection-Expression `[ … ]` + Index |
-| Liste der Positionen | `List<Bestellposition>` (Begründung im Kommentar: wächst automatisch, kein Zähler) | private `List<…>` + `IReadOnlyList` nach außen |
-| Summe/Maximum | `for`-Schleife mit `+=` und Maximumsuche | LINQ `Sum` / `Max` |
-| Ausgabe der Gerichte | `for` + Komma außer beim letzten Eintrag | `string.Join(",\n", …)` |
-| Eingabe/EOF | `do-while` je Frage, `return` bei `null` | lokale Funktionen mit nullable Rückgabe, `is not int auswahl` |
+- **Klassen:** `Gericht`, `Bestellposition`, `Bestellung` mit public Feldern
+- **Geld:** `double` (im Kommentar erklärt, warum `decimal` besser wäre)
+- **Sonderwunsch:** Werte in die Position **kopiert** und dort erhöht
+- **Speisekarte:** drei Variablen + `switch`
+- **Liste der Positionen:** `List<Bestellposition>` (Begründung im Kommentar: wächst automatisch, kein Zähler)
+- **Summe/Maximum:** `for`-Schleife mit `+=` und Maximumsuche
+- **Ausgabe der Gerichte:** `for` + Komma außer beim letzten Eintrag
+- **Eingabe/EOF:** `do-while` je Frage, `return` bei `null`
 
 ## Starten
 
 ```powershell
-dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A4_Bestellsystem/Klassisch"
-dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A4_Bestellsystem/Modern"
+dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A4_Bestellsystem"
 ```
 
-## Beispiel-Ausgabe (Klassisch, identisch mit Modern)
+## Beispiel-Ausgabe
 
 Testlauf mit den Eingaben aus dem Screenshot: `1`, `ja`, `extra Käse`, `3`, `nein`, `0`. Weil die
 Eingabe umgeleitet ist, erscheinen die eingegebenen Werte selbst nicht in der Ausgabe.

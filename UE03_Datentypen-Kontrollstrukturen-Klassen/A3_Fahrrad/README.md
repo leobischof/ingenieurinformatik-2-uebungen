@@ -11,27 +11,24 @@ einmal ausgegeben.
 **Klasse vs. Objekt:** Die Klasse ist der Bauplan (welche Attribute ein Fahrrad hat). Ein Objekt ist
 ein konkretes Fahrrad, das mit `new` nach diesem Bauplan erzeugt wird und eigene Werte hat.
 
-## Klassisch vs. Modern
+## Lösungsweg
 
-| Aspekt | Klassisch | Modern |
-|--------|-----------|--------|
-| Attribute | public **Felder**: `public string brand = "";` | public **Properties**: `required … { get; init/set; }` |
-| Pflichtwerte | Startwert `""` gegen die Nullable-Warnung | `required` erzwingt Werte beim Erzeugen |
-| Objekte erzeugen | `new Fahrrad()` + einzelne Zuweisungen | Objekt-Initialisierer `new() { brand = …, numberGears = … }` in einem Array `[ … ]` |
-| Ausgabe | Text zweimal per `+` und `"\n"` zusammengesetzt | `ToString()`-Override + LINQ `Select` + `string.Join("\n", …)` |
-| Program/Main | ausdrücklich geschrieben | vom Compiler aus den Top-Level-Statements erzeugt |
+- **Attribute:** public **Felder**: `public string brand = "";`
+- **Pflichtwerte:** Startwert `""` gegen die Nullable-Warnung
+- **Objekte erzeugen:** `new Fahrrad()` + einzelne Zuweisungen
+- **Ausgabe:** Text zweimal per `+` und `"\n"` zusammengesetzt
+- **Program/Main:** ausdrücklich geschrieben
 
-Die Namen `brand` und `numberGears` gibt die Angabe vor und werden in beiden Versionen verwendet.
+Die Namen `brand` und `numberGears` gibt die Angabe vor und werden im Code verwendet.
 Üblich wären in C# `Brand` und `NumberGears`.
 
 ## Starten
 
 ```powershell
-dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A3_Fahrrad/Klassisch"
-dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A3_Fahrrad/Modern"
+dotnet run --project "UE03_Datentypen-Kontrollstrukturen-Klassen/A3_Fahrrad"
 ```
 
-## Beispiel-Ausgabe (Klassisch, identisch mit Modern)
+## Beispiel-Ausgabe
 
 Das Programm braucht keine Eingabe.
 

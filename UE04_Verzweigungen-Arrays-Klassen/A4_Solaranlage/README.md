@@ -1,100 +1,55 @@
-# A4 – Leistungsübersicht einer Solaranlage
+# UE04 – Aufgabe 4: Leistungsübersicht einer Solaranlage
 
-## Aufgabe (zusammengefasst)
+## Was macht das Programm?
 
-Auf einem Hallendach steht eine PV-Anlage mit **4 Reihen zu je 6 Modulen**, jedes Modul hat **400 W** Nennleistung. Gesucht ist ein kleines Monitoring-Tool:
+Eine Solaranlage hat 4 Reihen mit je 6 Modulen, jedes Modul schafft höchstens 400 W. Die Klasse
+`Solaranlage` speichert die gemessene Leistung jedes Moduls in einer Tabelle (2D-Array). Das
+Hauptprogramm zeigt ein Menü, bis du 0 eingibst: Menüpunkt 1 zeigt die Messwerte als Tabelle,
+2 die Gesamtleistung (8,47 kW) und die Auslastung (88,2 %), 3 die Leistung jeder Reihe und die
+schwächste Reihe (Reihe 4). Bei einer ungültigen Eingabe kommt eine Meldung, und das Menü erscheint erneut.
 
-- Die Klasse **`Solaranlage`** speichert Standort, Modulnennleistung und die gemessenen Modulleistungen als **2D-Array** (in W). Standort und Nennleistung kommen über den Konstruktor. Die Messwerte werden im Konstruktor mit frei gewählten Werten befüllt, die die Nennleistung nicht überschreiten dürfen.
-- Diese Methoden sind gefordert:
-  - `MesswerteAnzeigen()` gibt alle Werte als Tabelle aus, mit verschachtelten Schleifen.
-  - `BerechneGesamtleistung()` liefert die Summe aller Werte, mit einer `foreach`-Schleife.
-  - `BerechneGesamtauslastung()` liefert die Gesamtleistung in % der Maximalleistung.
-  - `BerechneReihenleistung()` liefert die Leistung je Reihe als 1D-Array.
-- Das Hauptprogramm zeigt ein Menü, bis 0 eingegeben wird. Bei Menüpunkt 3 wird zusätzlich die schwächste Reihe ermittelt.
+## So zeigst du den Code
 
-## Umsetzung und Entscheidungen
+1. `Solaranlage.cs` oben: Die Klasse hat drei **private Felder** (`standort`, `modulnennleistung`,
+   `messwerte`). Von außen kommt man nur über die Methoden dran.
+2. Der **Konstruktor**: Standort und Nennleistung kommen als Parameter, das Array `int[4, 6]`
+   wird gleich mit Werten befüllt (4 Zeilen = Reihen, 6 Spalten = Module).
+3. `MesswerteAnzeigen()`: **verschachtelte `for`-Schleife**, außen die Reihen, innen die Module.
+4. `BerechneGesamtleistung()`: **`foreach`** geht alle 24 Werte durch und addiert sie.
+5. `BerechneGesamtauslastung()`: Gesamtleistung in Prozent der Maximalleistung (9600 W).
+   `100.0` mit Komma, damit keine Ganzzahldivision entsteht.
+6. `BerechneReihenleistung()`: liefert ein `int[]` mit der Summe pro Reihe.
+7. `Program.cs`: Objekt mit `new Solaranlage(...)` anlegen, dann die **`do-while`-Schleife** mit dem
+   Menü und dem **`switch`**. Bei `case 3` wird die schwächste Reihe mit einer Schleife gesucht.
+8. Vorführen: `1`, `2`, `3`, dann `x` (Fehlermeldung), dann `0`.
 
-- **Messwerte**: Übernommen aus dem Beispiel der Angabe, mit einer Korrektur. Dort steht bei Reihe 1 / Modul 4 der Wert **401 W**, das liegt über der Nennleistung von 400 W. Er wurde deshalb auf **400 W** korrigiert. Reihe 1 hat dadurch 2338 W statt 2339 W. Die gerundeten Ausgaben (8,47 kW, 88,2 %) bleiben gleich.
-- **Sicherheitsnetz**: Zusätzlich begrenzt der Konstruktor jeden Wert auf 0 … Nennleistung (klassisch mit `if`, modern mit `Math.Clamp`).
-- **Maximalleistung**: `Reihen × Module × Nennleistung` wird aus `GetLength(0)`/`GetLength(1)` berechnet und ist nicht hart codiert.
-- **Kapselung**: Das Messwert-Array bleibt `private` und wird nie herausgegeben. `BerechneReihenleistung()` liefert bei jedem Aufruf ein neues Array.
-- **Formatierung**: Gesamtleistung in kW mit 2 Nachkommastellen (`F2`), Auslastung in % mit 1 Nachkommastelle (`F1`). Die schwächste Reihe wird 1-basiert ausgegeben.
-- **Eingaben**: Buchstaben, leere Eingaben und unbekannte Zahlen ergeben „Ungültige Auswahl“. Bei Eingabeende (EOF) beendet sich das Programm wie bei 0.
+## Wahrscheinliche Fragen
 
-## Klassisch vs. Modern
-
-| Thema | Klassisch | Modern |
-|-------|-----------|--------|
-| Menüschleife | `do-while` + `switch`-Anweisung mit `break` | `while (true)` + `switch`-Ausdruck, der eine `Action` liefert |
-| Menüauswahl | `int.TryParse`, Menüpunkte als `int`-Konstanten | direkter Vergleich mit `string`-Konstanten, Pattern `is null or "0"` |
-| Klasse | `private readonly` Felder, Konstruktor | Primary Constructor, Properties `{ get; }`, berechnete Properties (`AnzahlReihen`, `Maximalleistung`) |
-| `BerechneGesamtleistung()` | `foreach` (laut Angabe) | `foreach` (laut Angabe; LINQ-Alternative `Cast<int>().Sum()` im Kommentar) |
-| `BerechneReihenleistung()` | verschachtelte `for`-Schleifen | `Enumerable.Range` + `Select` + `Sum` + `ToArray()` |
-| Schwächste Reihe | klassische Minimumsuche mit `for` | `Enumerable.Range(...).MinBy(...)` |
-| Tabelle | `PadLeft`/`PadRight` | Interpolation mit Alignment `{wert,6}`, `{text,-10}` |
+- **Wie funktioniert das 2D-Array, was macht `GetLength`?** Ein `int[4, 6]` ist eine Tabelle mit
+  4 Zeilen und 6 Spalten, man greift mit `messwerte[reihe, modul]` zu. `GetLength(0)` ist die Anzahl
+  der Zeilen (4), `GetLength(1)` die Anzahl der Spalten (6). In Python wäre das eine Liste von Listen.
+- **Warum `foreach` und nicht `for`?** Für die Summe brauche ich keine Indizes, nur jeden Wert einmal.
+  `foreach` ist kürzer, wie `for wert in liste:` in Python. Mit `for` brauche ich dagegen den Index,
+  zum Beispiel um die Reihe zu wissen (`BerechneReihenleistung`).
+- **Warum `do-while` und nicht `while`?** Das Menü muss mindestens einmal erscheinen, bevor man
+  etwas auswählen kann. Bei `do-while` wird die Bedingung (`auswahl != 0`) erst nach dem Durchlauf
+  geprüft. Bei `while` müsste ich `auswahl` vorher künstlich auf einen Wert setzen.
+- **Was ist eine Klasse, was macht der Konstruktor?** Die Klasse ist der Bauplan, `new Solaranlage(...)`
+  baut daraus ein Objekt. Der Konstruktor läuft dabei automatisch einmal und setzt die Felder
+  (in Python wäre das `__init__`). `this.standort` ist das Feld, `standort` der Parameter.
+- **Warum `/ 1000.0` und `* 100.0`?** Bei zwei `int`-Zahlen rechnet C# eine Ganzzahldivision:
+  `8470 / 1000` ergibt `8`. Mit `1000.0` (Kommazahl) kommt `8,47` heraus. Ohne `.0` wäre die Auslastung
+  falsch (`8470 * 100 / 9600` wird nur durch `100.0` zur Kommazahl).
+- **Warum steht bei Reihe 1 / Modul 4 die 400 und nicht 401 wie im Beispiel?** Die Angabe sagt
+  „Maximalwert beachten!“: ein Modul schafft höchstens 400 W, 401 W wäre also unmöglich. Deshalb 400 W.
+  Gesamtleistung und Auslastung bleiben gleich (8,47 kW, 88,2 %), nur Reihe 1 hat 2338 statt 2339 W.
+- **Was macht `int.TryParse`?** Es versucht, den Text in eine Zahl umzuwandeln. Bei `x` klappt das nicht,
+  dann setze ich `auswahl = -1` und lande im `default`-Fall des `switch`.
 
 ## Starten
 
 ```bash
-dotnet run --project UE04_Verzweigungen-Arrays-Klassen/A4_Solaranlage/Klassisch
-dotnet run --project UE04_Verzweigungen-Arrays-Klassen/A4_Solaranlage/Modern
+dotnet run --project "UE04_Verzweigungen-Arrays-Klassen_Einfach/A4_Solaranlage"
 ```
 
-## Beispiel-Ausgabe (echter Testlauf, beide Versionen identisch)
-
-Eingabe: `1`, `2`, `3`, `x` (ungültig), `0`
-
-```text
-========== PV-Monitoring ==========
-1 ... Anlage anzeigen
-2 ... Gesamtleistung und Auslastung
-3 ... Leistung pro Reihe
-0 ... Programm beenden
-Auswahl: 1
-
-PV-Anlage Dach Halle A (400 W pro Modul)
-              M1    M2    M3    M4    M5    M6
-Reihe 1:     385   392   378   400   388   395
-Reihe 2:     380   391   120   390   379   386
-Reihe 3:     372   381   369   377   375   383
-Reihe 4:     390   398   385     0   260   396
-
-========== PV-Monitoring ==========
-1 ... Anlage anzeigen
-2 ... Gesamtleistung und Auslastung
-3 ... Leistung pro Reihe
-0 ... Programm beenden
-Auswahl: 2
-Gesamtleistung: 8,47 kW
-Auslastung:     88,2 %
-
-========== PV-Monitoring ==========
-1 ... Anlage anzeigen
-2 ... Gesamtleistung und Auslastung
-3 ... Leistung pro Reihe
-0 ... Programm beenden
-Auswahl: 3
-Reihe 1:   2338 W
-Reihe 2:   2046 W
-Reihe 3:   2257 W
-Reihe 4:   1829 W
-Schwächste Reihe: 4
-
-========== PV-Monitoring ==========
-1 ... Anlage anzeigen
-2 ... Gesamtleistung und Auslastung
-3 ... Leistung pro Reihe
-0 ... Programm beenden
-Auswahl: x
-Ungültige Auswahl! Bitte 1, 2, 3 oder 0 eingeben.
-
-========== PV-Monitoring ==========
-1 ... Anlage anzeigen
-2 ... Gesamtleistung und Auslastung
-3 ... Leistung pro Reihe
-0 ... Programm beenden
-Auswahl: 0
-Programm beendet.
-```
-
-Nachgerechnet: 2338 + 2046 + 2257 + 1829 = 8470 W, das sind 8,47 kW. Maximal möglich sind 4 × 6 × 400 W = 9600 W, also 8470 / 9600 = 88,23 %, ausgegeben als 88,2 %.
+In Zed: `Program.cs` öffnen und `Strg+F5` drücken.

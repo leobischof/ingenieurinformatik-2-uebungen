@@ -1,41 +1,39 @@
-# A1 – Multiplikationstabelle
+# UE04 – Aufgabe 1: Multiplikationstabelle
 
-## Aufgabe (zusammengefasst)
+## Was macht das Programm?
 
-Das kleine Einmaleins für die Zahlen 1 bis 10 soll in einem **zweidimensionalen Array** gespeichert werden. Eine Kopfzeile oder Kopfspalte gibt es nicht, nur die Produkte. Danach wird der Inhalt des Arrays übersichtlich, also rechtsbündig in Spalten, auf der Konsole ausgegeben (Tipp aus der Angabe: `ToString().PadLeft(...)`).
+Das Programm rechnet das kleine Einmaleins aus, also alle Produkte von 1 × 1 bis 10 × 10, und gibt
+sie als Tabelle auf der Konsole aus. Die Tabelle wird vorher komplett in einem **2-dimensionalen
+Array** gespeichert. Erst danach wird sie ausgegeben. Es gibt keine Kopfzeile und keine Kopfspalte,
+nur die Produkte selbst. Jede Zahl steht rechtsbündig, damit die Stellen untereinander stehen.
 
-Konzepte: verschachtelte Schleifen, ein- und zweidimensionale Arrays.
+## So zeigst du den Code
 
-## Klassisch vs. Modern
+1. `Program.cs`, `Main`: `int[,] tabelle = new int[10, 10];` legt das Array an. Dann wird es mit
+   `FuelleTabelle` gefüllt und mit `GibTabelleAus` ausgegeben.
+2. `FuelleTabelle`: Zwei verschachtelte `for`-Schleifen. Die äußere läuft über die Zeilen, die innere
+   über die Spalten. Jede Zelle bekommt `(zeile + 1) * (spalte + 1)`. Das `+ 1` ist nötig, weil die
+   Indizes bei 0 beginnen.
+3. `GibTabelleAus`: Dieselben zwei Schleifen. `PadLeft(4)` macht aus jeder Zahl einen Text mit 4
+   Zeichen, links mit Leerzeichen aufgefüllt. Das ergibt die rechtsbündige Ausrichtung.
+   `Console.Write` schreibt ohne Zeilenumbruch, am Ende jeder Zeile setzt `Console.WriteLine()` einen.
+4. Vorführen: Programm starten, die Tabelle zeigen.
 
-| Thema | Klassisch | Modern |
-|-------|-----------|--------|
-| Programmgerüst | `namespace { class Program { static void Main } }` | Top-Level-Statements |
-| Hilfsmethoden | `static` Methoden der Klasse `Program` | `static` lokale Funktionen |
-| Speicher | `int[,]` (laut Angabe) | `int[,]` (laut Angabe) |
-| Befüllen | verschachtelte `for`-Schleifen | verschachtelte `for`-Schleifen (LINQ kann kein `int[,]` erzeugen) |
-| Ausgabe einer Zeile | innere `for`-Schleife + `PadLeft` | `Enumerable.Range` + `Select` + `string.Concat`, Alignment `$"{wert,4}"` |
+## Wahrscheinliche Fragen
+
+- **Was ist `int[,]`?** Ein 2-dimensionales Array, also eine Tabelle mit Zeilen und Spalten. In Python
+  wäre das ungefähr eine Liste aus Listen. Hier hat aber jede Zeile garantiert gleich viele Spalten.
+- **Warum `PadLeft(4)`?** Die größte Zahl ist 100 (drei Stellen). Mit 4 Zeichen bleibt immer ein
+  Leerzeichen Abstand, und die Zahlen stehen rechtsbündig. In Python wäre das `str(x).rjust(4)`.
+- **Warum `Console.Write` und nicht `WriteLine`?** `Write` bleibt in der Zeile, damit alle Zahlen einer
+  Zeile nebeneinander stehen. Erst am Ende der Zeile kommt der Zeilenumbruch.
+- **Was ist `Console.OutputEncoding = ...`?** Damit Umlaute richtig angezeigt werden. Die Windows-Konsole
+  nimmt sonst eine alte Zeichentabelle.
 
 ## Starten
 
 ```bash
-dotnet run --project UE04_Verzweigungen-Arrays-Klassen/A1_Multiplikationstabelle/Klassisch
-dotnet run --project UE04_Verzweigungen-Arrays-Klassen/A1_Multiplikationstabelle/Modern
+dotnet run --project "UE04_Verzweigungen-Arrays-Klassen_Einfach/A1_Multiplikationstabelle"
 ```
 
-## Beispiel-Ausgabe (echter Testlauf, beide Versionen identisch)
-
-```text
-Multiplikationstabelle von 1 bis 10:
-
-   1   2   3   4   5   6   7   8   9  10
-   2   4   6   8  10  12  14  16  18  20
-   3   6   9  12  15  18  21  24  27  30
-   4   8  12  16  20  24  28  32  36  40
-   5  10  15  20  25  30  35  40  45  50
-   6  12  18  24  30  36  42  48  54  60
-   7  14  21  28  35  42  49  56  63  70
-   8  16  24  32  40  48  56  64  72  80
-   9  18  27  36  45  54  63  72  81  90
-  10  20  30  40  50  60  70  80  90 100
-```
+In Zed: `Program.cs` öffnen und `Strg+F5` drücken.
