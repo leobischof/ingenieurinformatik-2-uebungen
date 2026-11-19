@@ -20,7 +20,7 @@ ingenieurinformatik-2-uebungen/
 │   │   └── README.md            ← Angabe in eigenen Worten + Beispiel-Ausgabe
 │   └── …
 ├── UE04_… bis UE07_…/
-└── Teilueberpruefung1_Training/ ← vier Übungsprüfungen (eigene .sln je Training)
+└── Teilueberpruefung1_Training/ ← acht Übungsprüfungen (eigene .sln je Training)
 ```
 
 Ein Ordner pro **Übung**, darin ein Ordner pro **Aufgabe**, darin genau **ein** Konsolenprojekt.
@@ -39,7 +39,8 @@ Records, keine Top-Level-Statements).
 | [UE07](UE07_Fehlerbehandlung/) | Fehlerbehandlung ([Erklärung](UE07_Fehlerbehandlung/ERKLAERUNG.md)) | Datum einlesen · Ausschussquote · Zugstab |
 
 **Prüfungsvorbereitung:** [Teilueberpruefung1_Training](Teilueberpruefung1_Training/README.md) –
-vier Übungsprüfungen zum Stoff UE01–UE05, aufgebaut wie die Teilüberprüfung (Angabe + Lösung).
+acht Übungsprüfungen zum Stoff UE01–UE05, aufgebaut wie die Teilüberprüfung (Angabe + Lösung);
+Training 5–8 mit Schwerpunkt Methoden und Vererbung.
 
 ## Ausführen
 
