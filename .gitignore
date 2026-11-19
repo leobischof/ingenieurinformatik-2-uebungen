@@ -480,3 +480,8 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Abgabe-Archive (zip/7z der eigenen Lösungen) nicht ins Repo
+*.zip
+*.7z
+*.rar
