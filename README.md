@@ -44,7 +44,9 @@ Training 5–8 mit Schwerpunkt Methoden und Vererbung.
 
 **Basisprojekt für die Prüfung:** [harborsim-basisprojekt](https://github.com/leobischof/harborsim-basisprojekt) –
 Hafensimulation HarborSim mit Syntax-Index zum Stoff UE03–UE07, Glossar und kommentarfreier Fassung
-(Branch `ohne-kommentare`).
+(Branch `ohne-kommentare`). Dazu elf Übungsprüfungen zum Erweiterungsteil in vier Stufen (10 bis 25 Minuten,
+Angabe als PDF, Testszenarien, Musterlösung als Patch): [uebungspruefungen](https://github.com/leobischof/harborsim-basisprojekt/tree/main/uebungspruefungen),
+Downloads im [Release v1.1.0](https://github.com/leobischof/harborsim-basisprojekt/releases/tag/v1.1.0).
 
 ## Ausführen
 
