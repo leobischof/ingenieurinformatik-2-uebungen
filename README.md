@@ -42,6 +42,10 @@ Records, keine Top-Level-Statements).
 acht Übungsprüfungen zum Stoff UE01–UE05, aufgebaut wie die Teilüberprüfung (Angabe + Lösung);
 Training 5–8 mit Schwerpunkt Methoden und Vererbung.
 
+**Basisprojekt für die Prüfung:** [harborsim-basisprojekt](https://github.com/leobischof/harborsim-basisprojekt) –
+Hafensimulation HarborSim mit Syntax-Index zum Stoff UE03–UE07, Glossar und kommentarfreier Fassung
+(Branch `ohne-kommentare`).
+
 ## Ausführen
 
 > Ausführlicher Spickzettel mit Startbefehlen, Debuggen und allen wichtigen Tastenkürzeln
